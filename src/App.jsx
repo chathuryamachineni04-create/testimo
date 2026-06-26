@@ -1,10 +1,24 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Landing from "./pages/Landing";
+import Submit from "./pages/Submit";
+import OwnerLogin from "./pages/OwnerLogin";
+import Dashboard from "./pages/Dashboard";
+import WidgetPreview from "./pages/WidgetPreview";
+import NotFound from "./pages/NotFound";
+
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-100">
-      <h1 className="text-5xl font-bold text-[#6C63FF]">
-        Proofly 🚀
-      </h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/submit" element={<Submit />} />
+        <Route path="/login" element={<OwnerLogin />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/widget" element={<WidgetPreview />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
