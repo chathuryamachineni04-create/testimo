@@ -122,21 +122,21 @@ function DashboardIllustration() {
 
 function Hero() {
   return (
-    <Section containerClassName="grid items-center gap-12 lg:grid-cols-2">
+    <Section containerClassName="grid items-center gap-16 lg:grid-cols-2" className="pt-28">
       {/* Left */}
       <div>
         <Eyebrow>
           Trusted by Growing Teams
         </Eyebrow>
 
-        <h1 className="mt-5 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-[3.4rem]">
+        <h1 className="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-[3.4rem]">
           Collect Customer Testimonials That{" "}
           <span className="text-[#6C63FF]">
             Build Trust
           </span>
         </h1>
 
-        <p className="mt-5 max-w-xl text-lg leading-relaxed text-gray-500">
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-500">
           Collect, organize, and showcase authentic customer
           testimonials with AI-powered insights. Build
           credibility and convert more visitors into customers.
@@ -167,7 +167,9 @@ function Hero() {
       </div>
 
       {/* Right */}
-      <DashboardIllustration />
+      <div className="lg:-translate-y-6 transition-transform duration-500">
+  <DashboardIllustration />
+</div>
     </Section>
   );
 }

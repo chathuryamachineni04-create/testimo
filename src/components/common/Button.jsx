@@ -17,7 +17,7 @@ function Button({
   return (
     <button
       type={type}
-      className={`inline-flex items-center justify-center gap-2 rounded-[12px] px-5 py-3 text-sm font-semibold transition-all active:scale-[0.98] ${VARIANT_CLASSES[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-[12px] px-6 py-3.5 text-sm font-semibold transition-all active:scale-[0.98] ${VARIANT_CLASSES[variant]} ${className}`}
       {...props}
     >
       {children}

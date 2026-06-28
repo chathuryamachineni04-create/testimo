@@ -51,12 +51,12 @@ function Navbar() {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-10 lg:px-20">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-3 rounded-xl px-2 py-1 transition-all hover:opacity-90">
           <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[#6C63FF] text-white shadow-[0_4px_10px_-2px_rgba(108,99,255,0.5)]">
             <HiSparkles className="h-4 w-4" />
           </span>
 
-          <span className="text-lg font-bold text-gray-900">
+          <span className="text-2xl font-extrabold tracking-tight text-gray-900">
             Testimo
           </span>
         </Link>
