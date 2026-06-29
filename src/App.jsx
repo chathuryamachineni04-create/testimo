@@ -9,6 +9,9 @@ import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
 import Analytics from "./pages/Analytics";
 import Testimonials from "./pages/Testimonials";
+import Widgets from "./pages/Widgets";
+import WidgetCustomizer from "./pages/WidgetCustomizer";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -23,6 +26,15 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/testimonials" element={<Testimonials />} />
+        <Route path="/widgets" element={<Widgets />} />
+        <Route
+  path="/widgets/:type"
+  element={<WidgetCustomizer />}
+/>
+<Route
+  path="/settings"
+  element={<Settings />}
+/>
       </Routes>
     </BrowserRouter>
   );

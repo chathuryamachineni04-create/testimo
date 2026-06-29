@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import api from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FiMail,
@@ -10,7 +11,31 @@ import {
 
 function OwnerLogin() {
   const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState("");
+const [password, setPassword] = useState("");
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState("");
   const navigate = useNavigate();
+  const handleLogin = async () => {
+  setLoading(true);
+  setError("");
+
+  try {
+    const response = await api.post("/login/", {
+      username,
+      password,
+    });
+
+    localStorage.setItem("access", response.data.access);
+    localStorage.setItem("refresh", response.data.refresh);
+
+    navigate("/dashboard");
+  } catch (err) {
+    setError("Invalid username or password");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-[#F8F7FF] to-[#EEE9FF] px-6">
@@ -52,9 +77,10 @@ function OwnerLogin() {
             <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
 
             <input
-              type="email"
-              placeholder="you@example.com"
-              className="w-full rounded-xl border border-gray-300 py-3 pl-11 pr-4 outline-none transition-all duration-300 focus:border-[#6C63FF] focus:ring-4 focus:ring-[#6C63FF]/20"
+  type="text"
+  placeholder="Username"
+  value={username}
+  onChange={(e) => setUsername(e.target.value)}
             />
           </div>
         </div>
@@ -69,8 +95,10 @@ function OwnerLogin() {
             <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
 
             <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter your password"
+  type={showPassword ? "text" : "password"}
+  placeholder="Enter your password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-xl border border-gray-300 py-3 pl-11 pr-12 outline-none transition-all duration-300 focus:border-[#6C63FF] focus:ring-4 focus:ring-[#6C63FF]/20"
             />
 
@@ -101,11 +129,18 @@ function OwnerLogin() {
             Forgot password?
           </Link>
         </div>
+        {error && (
+  <p className="mb-4 text-center text-red-500">
+    {error}
+  </p>
+)}
 
         {/* Sign In */}
-        <button onClick={() => navigate("/dashboard")}
+        <button
+  onClick={handleLogin}
+  disabled={loading}
         className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#6C63FF] to-[#8B83FF] py-3 font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
-        Sign In
+        {loading ? "Signing In..." : "Sign In"}
         <FiArrowRight />
         </button>
 
