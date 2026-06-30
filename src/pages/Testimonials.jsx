@@ -87,33 +87,40 @@ const fetchTestimonials = async () => {
   open={isEditOpen}
   testimonial={selectedTestimonial}
   onClose={() => setIsEditOpen(false)}
- onSave={(updatedData) => {
+ onSave={async (updatedData) => {
+  try {
+    await api.put(
+      `testimonials/${updatedData.id}/`,
+      updatedData
+    );
 
-  const updatedTestimonials = testimonials.map((item) =>
-    item.id === updatedData.id ? updatedData : item
-  );
+    fetchTestimonials();
 
-  setTestimonials(updatedTestimonials);
+    setIsEditOpen(false);
 
-  setSelectedTestimonial(updatedData);
-
-  setIsEditOpen(false);
-
+  } catch (error) {
+    console.error(error);
+    alert("Failed to update testimonial");
+  }
 }}
 />
 <DeleteModal
   open={isDeleteOpen}
   testimonial={selectedTestimonial}
   onClose={() => setIsDeleteOpen(false)}
-  onDelete={(id) => {
-    const updatedTestimonials = testimonials.filter(
-      (item) => item.id !== id
-    );
+  onDelete={async (id) => {
+  try {
+    await api.delete(`testimonials/${id}/`);
 
-    setTestimonials(updatedTestimonials);
+    fetchTestimonials();
 
     setIsDeleteOpen(false);
-  }}
+
+  } catch (error) {
+    console.error(error);
+    alert("Failed to delete testimonial");
+  }
+}}
 />
 <AddModal
   open={isAddOpen}

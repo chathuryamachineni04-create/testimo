@@ -12,6 +12,7 @@ import Testimonials from "./pages/Testimonials";
 import Widgets from "./pages/Widgets";
 import WidgetCustomizer from "./pages/WidgetCustomizer";
 import Settings from "./pages/Settings";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   return (
@@ -21,19 +22,55 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/submit" element={<Submit />} />
         <Route path="/login" element={<OwnerLogin />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
         <Route path="/widget" element={<WidgetPreview />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/testimonials" element={<Testimonials />} />
-        <Route path="/widgets" element={<Widgets />} />
+        <Route
+  path="/analytics"
+  element={
+    <ProtectedRoute>
+      <Analytics />
+    </ProtectedRoute>
+  }
+/>
+        <Route
+  path="/testimonials"
+  element={
+    <ProtectedRoute>
+      <Testimonials />
+    </ProtectedRoute>
+  }
+/>
+        <Route
+  path="/widgets"
+  element={
+    <ProtectedRoute>
+      <Widgets />
+    </ProtectedRoute>
+  }
+/>
         <Route
   path="/widgets/:type"
-  element={<WidgetCustomizer />}
+  element={
+    <ProtectedRoute>
+      <WidgetCustomizer />
+    </ProtectedRoute>
+  }
 />
 <Route
   path="/settings"
-  element={<Settings />}
+  element={
+    <ProtectedRoute>
+      <Settings />
+    </ProtectedRoute>
+  }
 />
       </Routes>
     </BrowserRouter>

@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
+import api from "../services/api";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import DashboardStats from "../components/dashboard/DashboardStats";
 import AnalyticsChart from "../components/dashboard/AnalyticsChart";
 import RecentTestimonials from "../components/dashboard/RecentTestimonials";
-import testimonialsData from "../data/testimonials";
+
 
 function Dashboard() {
   const [testimonials, setTestimonials] = useState([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("testimonials");
+  fetchDashboardData();
+}, []);
 
-    if (saved) {
-      setTestimonials(JSON.parse(saved));
-    } else {
-      setTestimonials(testimonialsData);
-    }
-  }, []);
+const fetchDashboardData = async () => {
+  try {
+    const response = await api.get("testimonials/");
+    setTestimonials(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const totalTestimonials = testimonials.length;
 
