@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/submit" element={<Submit />} />
+        <Route path="/submit/:username" element={<Submit />} />
         <Route path="/login" element={<OwnerLogin />} />
         <Route
   path="/dashboard"
