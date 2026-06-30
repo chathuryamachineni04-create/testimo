@@ -7,11 +7,12 @@ function AddModal({
 }) {
 
   const [form, setForm] = useState({
-    customer: "",
-    rating: 5,
-    status: "Published",
-    date: "",
-  });
+  customer: "",
+  company: "",
+  message: "",
+  rating: 5,
+  status: "Pending",
+});
 
   if (!open) return null;
 
@@ -39,7 +40,7 @@ function AddModal({
   return (
     <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
 
-      <div className="bg-white rounded-2xl p-8 w-full max-w-lg">
+      <div className="bg-white rounded-2xl p-8 w-full max-w-lg max-h-[90vh] overflow-y-auto">
 
         <h2 className="text-2xl font-bold mb-6">
           Add Testimonial
@@ -55,6 +56,27 @@ function AddModal({
           onChange={handleChange}
           className="w-full border rounded-lg p-3 mb-4"
         />
+        <label className="block mb-2">
+  Company
+</label>
+
+<input
+  name="company"
+  value={form.company}
+  onChange={handleChange}
+  className="w-full border rounded-lg p-3 mb-4"
+/>
+<label className="block mb-2">
+  Message
+</label>
+
+<textarea
+  name="message"
+  value={form.message}
+  onChange={handleChange}
+  rows="4"
+  className="w-full border rounded-lg p-3 mb-4"
+/>
 
         <label className="block mb-2">
           Rating
@@ -84,16 +106,7 @@ function AddModal({
           <option>Pending</option>
         </select>
 
-        <label className="block mb-2">
-          Date
-        </label>
-
-        <input
-          name="date"
-          value={form.date}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-3"
-        />
+        
 
         <div className="flex justify-end gap-4 mt-8">
 

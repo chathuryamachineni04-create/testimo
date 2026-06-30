@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import api from "../services/api";
 import testimonialsData from "../data/testimonials";
 import TestimonialTable from "../components/testimonials/TestimonialTable";
 import SummaryCards from "../components/testimonials/SummaryCards";
@@ -10,24 +11,26 @@ import AddModal from "../components/testimonials/AddModal";
 
 function Testimonials() {
     const [search, setSearch] = useState("");
-    const [testimonials, setTestimonials] = useState(() => {
-  const saved = localStorage.getItem("testimonials");
-
-  return saved
-    ? JSON.parse(saved)
-    : testimonialsData;
-});
+    const [testimonials, setTestimonials] = useState([]);
     const [selectedTestimonial, setSelectedTestimonial] = useState(null);
 const [isModalOpen, setIsModalOpen] = useState(false);
 const [isEditOpen, setIsEditOpen] = useState(false);
 const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 const [isAddOpen, setIsAddOpen] = useState(false);
 useEffect(() => {
-  localStorage.setItem(
-    "testimonials",
-    JSON.stringify(testimonials)
-  );
-}, [testimonials]);
+  fetchTestimonials();
+}, []);
+
+const fetchTestimonials = async () => {
+  try {
+    const response = await api.get("testimonials/");
+
+    setTestimonials(response.data);
+
+  } catch (error) {
+    console.error(error);
+  }
+};
   return (
     <div className="min-h-screen bg-[#F8F9FC] p-8">
 
@@ -115,9 +118,17 @@ useEffect(() => {
 <AddModal
   open={isAddOpen}
   onClose={() => setIsAddOpen(false)}
-  onAdd={(newTestimonial) => {
-    setTestimonials([...testimonials, newTestimonial]);
-    setIsAddOpen(false);
+  onAdd={async (newTestimonial) => {
+    try {
+      await api.post("testimonials/", newTestimonial);
+
+      fetchTestimonials();
+
+      setIsAddOpen(false);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to add testimonial");
+    }
   }}
 />
     </div>
