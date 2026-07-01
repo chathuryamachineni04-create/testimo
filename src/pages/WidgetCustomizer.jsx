@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ThemeSelector from "../components/widgets/ThemeSelector";
 import PreviewCard from "../components/widgets/PreviewCard";
@@ -7,8 +7,32 @@ import EmbedCode from "../components/widgets/EmbedCode";
 
 function WidgetCustomizer() {
   const { type } = useParams();
+
   const [theme, setTheme] = useState("light");
   const [color, setColor] = useState("#6C63FF");
+
+  useEffect(() => {
+    const saved = localStorage.getItem(`widget-${type}`);
+
+    if (saved) {
+      const settings = JSON.parse(saved);
+      setTheme(settings.theme);
+      setColor(settings.color);
+    }
+  }, [type]);
+
+  function saveWidget() {
+    localStorage.setItem(
+      `widget-${type}`,
+      JSON.stringify({
+        theme,
+        color,
+      })
+    );
+
+    alert("Widget settings saved!");
+  }
+
 
   return (
     <div className="min-h-screen bg-[#F8F9FC] p-8">
@@ -41,6 +65,14 @@ function WidgetCustomizer() {
     theme={theme}
     color={color}
   />
+  <div className="mt-8">
+  <button
+    onClick={saveWidget}
+    className="bg-[#6C63FF] text-white px-6 py-3 rounded-xl hover:bg-[#5A52E0]"
+  >
+    Save Widget
+  </button>
+</div>
 </div>
 </div>
 
